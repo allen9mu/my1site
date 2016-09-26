@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 
 # Create your views here.
 
@@ -13,9 +13,11 @@ def post_list(request):
 def post_detail(request,year,month,day,post):
     post = get_object_or_404(Post,slug=post,
                              status='published',
-                             published_year=year,
-                             published_month=month,
-                             published_day=day)
+                             publish__year=year,
+                             publish__month=month,
+                             publish__day=day)
+    
+    
     return render(request,
                   'blog/post/detail.html',
                   {'post':post})
